@@ -35,25 +35,39 @@ public class ValidateRoomNumber {
 
     }
 
+    @PostMapping("/joinRoom")
+    public ResponseEntity<String> joinRoom(@RequestBody Room room){
+        System.out.println("In joinroom");
+        HttpHeaders headers = new HttpHeaders();
+        String str = roomService.joinRoom(room);
+        ResponseEntity<String> entity = new ResponseEntity<>(str,headers,HttpStatus.CREATED);
+        return entity;
+
+    }
+
     @GetMapping("/getRoomDetails")
     public Map<String, Integer>  getRoom(){
-        System.out.println("********** In /getRoom *************");
         return roomService.getAllRoomDetails();
     }
     
-    @GetMapping("/getRoomList")
-    public List<Integer>  getRoomList(){
-        System.out.println("********** In /getRoomList *************");
-        System.out.println(roomService.getAllRoomList());
-        return roomService.getAllRoomList();
+    @GetMapping("/getAllRoomMap")
+    public Map<Integer, List<String>> getAllRoomMap(){
+        return roomService.getAllRoomMap();
+    }
+
+    @GetMapping("/getRoomUsername/{roomNumber}")
+    public ResponseEntity<List<String>> getRoomUsername(@PathVariable Integer roomNumber){
+        System.out.println("In /getRoomUsername");
+        HttpHeaders headers = new HttpHeaders();
+        List<String> str = roomService.getRoomUsername(roomNumber);
+        ResponseEntity<List<String>> entity = new ResponseEntity<>(str,headers,HttpStatus.CREATED);
+        return entity;
     }
 
     
     @GetMapping("/validateRoomNumber/{roomNumber}")
     public ResponseEntity<RoomResponse> validateRoomNumber(@PathVariable Integer roomNumber){
-        System.out.println("********** In /validateRoomNumber *************");
         RoomResponse res = new RoomResponse();
-        System.out.println(roomService.validateRoomNumber(roomNumber));
         if (roomService.validateRoomNumber(roomNumber)) {
             res.setCode("0000");
             res.setMsg("Room find");
