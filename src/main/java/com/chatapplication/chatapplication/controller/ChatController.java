@@ -20,15 +20,16 @@ public class ChatController {
      // Sends the return value of this method to /chatroom/public
     // @SendTo("/chatroom/public")
     public Message receivePublicMessage(@Payload Message msg , @DestinationVariable String id){
-        // System.out.println("In public message");
         simpMessagingTemplate.convertAndSend("/chatroom/public/"+id,msg);
+        msg.printallData();
+        System.out.println("****In public message** Id = "+id);
         return msg;
     }
 
     @MessageMapping("/privateMessage")
     public Message sendPrivateMessage(@Payload Message msg){
         simpMessagingTemplate.convertAndSendToUser(msg.getReceivername(),"/private",msg);
-        // System.out.println("In private message");
+        System.out.println("In private message");
         // System.out.println(msg);
         return msg;
     }
