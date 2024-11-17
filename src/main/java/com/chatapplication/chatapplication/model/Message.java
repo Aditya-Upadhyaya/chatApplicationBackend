@@ -18,6 +18,7 @@ public class Message {
     private String message;
     private String timestamp;
     private Status Status;
+    private String email;
 
     public void printallData(){
         System.out.println("Send name : "+getSendername());
