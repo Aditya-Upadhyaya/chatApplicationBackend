@@ -24,5 +24,6 @@ public class Message {
         System.out.println("Send name : "+getSendername());
         System.out.println("Receiver name :"+getReceivername());
         System.out.println("Message : "+getMessage());
+        System.out.println("Status : "+getStatus());
     }
 }
